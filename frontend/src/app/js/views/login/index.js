@@ -22,7 +22,7 @@ class LoginView extends Component {
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.isAuthenticated) {
 			axios.defaults.headers.common['Authorization'] = null; // TODO
-			browserHistory.push('/form');
+			this.props.history.push('/form');
 		} else {
 			axios.defaults.headers.common['Authorization'] = null;
 		}

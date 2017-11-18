@@ -29,19 +29,21 @@ export function loginUser(username, password) {
 	return dispatch => {
 		dispatch({type: types.LOGIN_USER_REQUEST});
 
+		let data = new FormData();
+		data.append('username', username);
+		data.append('password', password);
+
 		const request = {
 			url: endpoints['login'].url,
-			method: endpoints['login'].method
+			method: endpoints['login'].method,
+			data: data
 		};
-		axios(request, {
-				username: username,
-				password: password
-			})
+		
+		axios(request)
 			.then(response => {
 				const userData = {
-					home: userHome,
-					token: response.data.data.token,
-					userData: response.data.data
+					token: response.data.token,
+					userData: response.data.userData
 				};
 
 				dispatch(loginUserSuccess(userData));

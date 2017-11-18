@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Proptypes from 'prop-types';
 import {connect} from 'react-redux';
+import {PageHeader} from 'react-bootstrap';
 
 class FormView extends Component {
 	constructor(props) {
@@ -9,7 +10,12 @@ class FormView extends Component {
 
 	render() {
 		return (<div>
-				Form
+				<PageHeader>
+					Register contact
+				</PageHeader>
+				<div>
+					Body
+				</div>
 			</div>);
 	}
 }
