@@ -16,4 +16,8 @@ class AdminView extends Component {
 	}
 }
 
-export default AdminView;
+export default const mapStateToProps = (state) => ({
+
+});
+
+export default connect(mapStateToProps)(AdminView);

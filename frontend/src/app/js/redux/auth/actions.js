@@ -1,6 +1,7 @@
 import * as types from './actionTypes.js';
 import endpoints from '../../core/endpoints';
 import axios from 'axios';
+import config from '../../../config.json';
 
 function loginUserSuccess(userData) {
 	return {
@@ -39,6 +40,20 @@ export function loginUser(username, password) {
 			data: data
 		};
 		
+		if (config.fakeBackend) {
+			dispatch({
+				type: types.LOGIN_USER_SUCCESS,
+				action: {
+					token: 'fakeToken',
+					userData: {
+						username: username
+					},
+					errorMessage: null
+				}
+			})
+			return;
+		}
+
 		axios(request)
 			.then(response => {
 				const userData = {
