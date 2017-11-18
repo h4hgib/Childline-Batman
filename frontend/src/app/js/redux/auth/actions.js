@@ -1,21 +1,25 @@
+import * as types from './actionTypes.js';
 import endpoints from '../../core/endpoints';
+import axios from 'axios';
 
-function loginSuccess(userData) {
+function loginUserSuccess(userData) {
 	return {
 		type: types.LOGIN_USER_SUCCESS,
 		action: {
 			token: userData.token,
-			userData: userData.userData
+			userData: userData.userData,
+			errorMessage: null
 		}
 	};
 }
 
-function loginFailure(err) {
+function loginUserFailure(err) {
 	return {
 		type: types.LOGIN_USER_FAILURE,
 		action: {
-			token: userData.token,
-			userData: userData.userData
+			token: null,
+			userData: null,
+			errorMessage: err.message
 		}
 	};
 }
@@ -27,13 +31,12 @@ export function loginUser(username, password) {
 
 		const request = {
 			url: endpoints['login'].url,
-			method: endpoints['login'].method,
-			bodyParams: {
-				username: userName,
-				password: password
-			}
+			method: endpoints['login'].method
 		};
-		backendProxyInstance.request(request)
+		axios(request, {
+				username: username,
+				password: password
+			})
 			.then(response => {
 				const userData = {
 					home: userHome,

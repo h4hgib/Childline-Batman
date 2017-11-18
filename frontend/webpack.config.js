@@ -36,7 +36,7 @@ const config = {
 			{
 				test : /\.(jsx|js)$/,
 				include : APP_DIR,
-				loader : 'babel-loader'
+				loader : ['babel-loader']
 			},
 			{
 				test: /\.(css|scss)$/,

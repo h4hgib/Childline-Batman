@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Proptypes from 'prop-types';
+import {connect} from 'react-redux';
 
 class FormView extends Component {
 	constructor(props) {
@@ -13,4 +14,8 @@ class FormView extends Component {
 	}
 }
 
-export default FormView;
+const mapStateToProps = (state) => ({
+
+});
+
+export default connect(mapStateToProps)(FormView);

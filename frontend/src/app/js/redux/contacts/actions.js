@@ -1,3 +1,5 @@
+import * as types from './actionTypes.js';
+import axios from 'axios';
 
 function getContactsSuccess(data) {
 
