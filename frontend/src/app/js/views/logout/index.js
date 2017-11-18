@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import axios from 'axios';
 import {logout} from '../../redux/auth/actions.js';
 
 class LogoutView extends Component {
-	componentDidRender() {
+	componentDidMount() {
 		this.props.dispatch(logout());
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (!nextProps.isAuthenticathed) {
+		if (!nextProps.isAuthenticated) {
 			axios.defaults.headers.common['Authorization'] = null;
-			browserHistory.push('/login');
+			this.props.history.push('/login');
 		}
 	}
 
@@ -23,11 +24,11 @@ class LogoutView extends Component {
 }
 
 const mapStateToProps = (state) => ({
-	isAuthenticathed: state.auth.isAuthenticathed
+	isAuthenticated: state.auth.isAuthenticated
 });
 
 LogoutView.propTypes = {
-	isAuthenticathed: PropTypes.bool
+	isAuthenticated: PropTypes.bool
 };
 
 export default connect(mapStateToProps)(LogoutView);

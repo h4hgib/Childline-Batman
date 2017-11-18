@@ -1,6 +1,7 @@
 import * as types from './actionTypes.js';
 import endpoints from '../../core/endpoints';
 import axios from 'axios';
+import config from '../../../config.json';
 
 function loginUserSuccess(userData) {
 	return {
@@ -29,19 +30,35 @@ export function loginUser(username, password) {
 	return dispatch => {
 		dispatch({type: types.LOGIN_USER_REQUEST});
 
+		let data = new FormData();
+		data.append('username', username);
+		data.append('password', password);
+
 		const request = {
 			url: endpoints['login'].url,
-			method: endpoints['login'].method
+			method: endpoints['login'].method,
+			data: data
 		};
-		axios(request, {
-				username: username,
-				password: password
+		
+		if (config.fakeBackend) {
+			dispatch({
+				type: types.LOGIN_USER_SUCCESS,
+				action: {
+					token: 'fakeToken',
+					userData: {
+						username: username
+					},
+					errorMessage: null
+				}
 			})
+			return;
+		}
+
+		axios(request)
 			.then(response => {
 				const userData = {
-					home: userHome,
-					token: response.data.data.token,
-					userData: response.data.data
+					token: response.data.token,
+					userData: response.data.userData
 				};
 
 				dispatch(loginUserSuccess(userData));

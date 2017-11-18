@@ -1,6 +1,7 @@
 {
 	"server": {
-		"url": "http://localhost",
+		"url": "http://10.10.2.250",
 		"port": 8080
-	}
+	},
+	"fakeBackend": true
 }
