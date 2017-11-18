@@ -22,7 +22,10 @@ public class GreetingController {
 	
 	@RequestMapping(value="/auth/register", method=RequestMethod.POST)
     @ResponseBody
-    public String register(@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password) {
+    public String register(@RequestHeader(value="token", required=true) String token,@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password) {
+		if (loged.isLoggedToken(token)==false) {
+			return "{\"success\":401}";
+		}
 		userRepository.save(new User(username, password));
 		return "{\"success\":200}";
     }
@@ -30,7 +33,9 @@ public class GreetingController {
     @RequestMapping(value="/auth/login", method=RequestMethod.POST)
     @ResponseBody
     public String login(@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password, Model model) {
-    		String token=loged.logIn(username, password);
+    		System.out.println(username+password);
+    		System.out.println(userRepository.findByUsername(username));
+    		String token=loged.logIn(username, password,userRepository.findByUsername(username));
     		return "{\"token:\":\""+token+"\", \"userData\": {\"username\": " + username + "}}";
     }
     
@@ -40,14 +45,7 @@ public class GreetingController {
     		loged.logOut(username);
     		return "{\"success\":200}";
     }
-    /*
-     * "id: 1," + 
-      		"timestamp: 1511013857," + 
-      		"method: ‘phone’," + 
-      		"category: ‘information’" + 
-      		"requestForAnonymity: ‘YES’" 
-     * */
-    
+
     @RequestMapping(value="/contacts", method=RequestMethod.POST)
     @ResponseBody
     public String contactsPost(@RequestHeader(value="token", required=true) String token,
@@ -91,17 +89,32 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts/{id}", method=RequestMethod.POST)
     @ResponseBody
-    public String updateContactsWparameters(@RequestParam(value="id", required=true) String id, @RequestHeader(value="token", required=true) String token) {
+    public String updateContactsWparameters(@RequestParam(value="id", required=true) String id, @RequestHeader(value="token", required=true) String token,
+    		@RequestParam(value="timestamp", required=false) Long timestamp,
+    		@RequestParam(value="method", required=false) String method,
+    		@RequestParam(value="category", required=false) String category,
+    		@RequestParam(value="requestForAnonimity", required=false) String requestForAnonimity) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
-      return "{" + 
-      		"id: 1," + 
-      		"timestamp: 1511013857," + 
-      		"method: ‘phone’," + 
-      		"category: ‘information’" + 
-      		"requestForAnonymity: ‘YES’" + 
-      		"}";
+    	Contact contact =contactRepository.findById(id);
+    if(timestamp!=null) {
+    		contact.timestamp=timestamp;
+    		contactRepository.save(contact);
+    }
+    if(method!=null) {
+		contact.method=method;
+		contactRepository.save(contact);
+    }
+    if(category!=null) {
+		contact.category=category;
+		contactRepository.save(contact);
+    }
+    if(category!=null) {
+		contact.requestForAnonimity=requestForAnonimity;
+		contactRepository.save(contact);
+    }
+      return "{\"success\":200}";
     }
 
 }
