@@ -2,7 +2,6 @@
 	"title": "Request for Information input",
 	"description": "This data is to be filled on request for information contacts",
 	"type": "object",
-	"required": "volunteerName",
 	"properties": {
         "callerDetails": {
             "type" : "object",
@@ -40,7 +39,7 @@
                     "title": "Name of Father"
                 },
                 "lastName": {
-                    "type": "strig",
+                    "type": "string",
                     "title": "Last Name"
                 },
                 "address": {
@@ -75,7 +74,7 @@
                             "title": "Nickname"
                         },
                         "sex": {
-                            type: "string",
+                            "type": "string",
                             "title": "Sex",
                             "enum": [
                                 "Male",
@@ -94,10 +93,10 @@
                             "title": "Primary reason of contact",
                             "enum": [
                                 "Alcohol abuse",
-                                "Bullying"
+                                "Bullying",
                                 "Depression",
                                 "Domestic Violence",
-                                "Eating disorder,
+                                "Eating disorder",
                                 "Education",
                                 "Emotional abuse",
                                 "Exam stress",
@@ -125,10 +124,10 @@
                             "title": "Secondary reason of contact",
                             "enum": [
                                 "Alcohol abuse",
-                                "Bullying"
+                                "Bullying",
                                 "Depression",
                                 "Domestic Violence",
-                                "Eating disorder,
+                                "Eating disorder",
                                 "Education",
                                 "Emotional abuse",
                                 "Exam stress",
