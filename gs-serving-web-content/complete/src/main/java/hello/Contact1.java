@@ -18,6 +18,7 @@ public class Contact1 {
     //category,details,followup, followupDetails
 
     public Contact1(Long id,String diverseCategory, String details, String followup, String followupDetails) {
+    	    this.id = id;
         this.diverseCategory = diverseCategory;
         this.details = details;
         this.followup = followup;

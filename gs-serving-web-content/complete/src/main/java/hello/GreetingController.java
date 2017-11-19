@@ -35,7 +35,7 @@ public class GreetingController {
 	
 	@RequestMapping(value="/auth/register", method=RequestMethod.POST)
     @ResponseBody
-    public String register(@RequestHeader(value="Authotization", required=true) String token,@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password) {
+    public String register(@RequestHeader(value="Authorization", required=true) String token,@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password) {
 		if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -76,9 +76,15 @@ public class GreetingController {
     		}
     		Long i=0l;
     		List<Contact> contacts=contactRepository.findAll();
+    		System.out.println(contacts.size());
     		for (Contact c : contacts) {
-    			if (c.id > i){
-    				i=c.id;
+    			System.out.println(c);
+    			System.out.println(c.id);
+    			System.out.println(i);
+    			if(c.id!=null) {
+    				if (c.id.compareTo(i)>0){
+        				i=c.id;
+        			}
     			}
     		}
     		contactRepository.save(new Contact(i+1,timestamp,method,category, requestForAnonimity));
@@ -87,7 +93,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts", method=RequestMethod.GET)
     @ResponseBody
-    public String contactsGet(@RequestHeader(value="Authotization", required=true) String token) {
+    public String contactsGet(@RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -105,7 +111,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts/{id}", method=RequestMethod.GET)
     @ResponseBody
-    public String contactsWparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token) {
+    public String contactsWparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -114,7 +120,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts/{id}", method=RequestMethod.POST)
     @ResponseBody
-    public String updateContactsWparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token,
+    public String updateContactsWparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token,
     		@RequestParam(value="timestamp", required=false) Long timestamp,
     		@RequestParam(value="method", required=false) String method,
     		@RequestParam(value="category", required=false) String category,
@@ -149,24 +155,18 @@ public class GreetingController {
     		@RequestParam(value="diverseCategory", required=true) String diverseCategory,
     		@RequestParam(value="details", required=true) String details,
     		@RequestParam(value="followup", required=true) String followup,
-    		@RequestParam(value="followupDetails", required=true) String followupDetails) {
+    		@RequestParam(value="followupDetails", required=true) String followupDetails,
+    		@RequestParam(value="id", required=true) Long id) {
     		if (loged.isLoggedToken(token)==false) {
     			return "{\"success\":401}";
     		}
-    		Long i=0l;
-    		List<Contact1> contacts=contactRepository1.findAll();
-    		for (Contact1 c : contacts) {
-    			if (c.id > i){
-    				i=c.id;
-    			}
-    		}
-    		contactRepository1.save(new Contact1(i+1,diverseCategory,details,followup, followupDetails));
+    		contactRepository1.save(new Contact1(id,diverseCategory,details,followup, followupDetails));
       return "{\"success\":200}";
     }
     
     @RequestMapping(value="/contacts1", method=RequestMethod.GET)
     @ResponseBody
-    public String contacts1Get(@RequestHeader(value="Authotization", required=true) String token) {
+    public String contacts1Get(@RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -184,7 +184,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts1/{id}", method=RequestMethod.GET)
     @ResponseBody
-    public String contacts1Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token) {
+    public String contacts1Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -193,7 +193,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts1/{id}", method=RequestMethod.POST)
     @ResponseBody
-    public String updateContacts1Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token,
+    public String updateContacts1Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token,
     		@RequestParam(value="diverseCategory", required=true) String diverseCategory,
     		@RequestParam(value="details", required=true) String details,
     		@RequestParam(value="followup", required=true) String followup,
@@ -229,24 +229,18 @@ public class GreetingController {
     		@RequestParam(value="timestamp", required=true) Long timestamp,
     		@RequestParam(value="method", required=true) String method,
     		@RequestParam(value="category", required=true) String category,
-    		@RequestParam(value="requestForAnonimity", required=true) String requestForAnonimity) {
+    		@RequestParam(value="requestForAnonimity", required=true) String requestForAnonimity,
+    		@RequestParam(value="id", required=true) Long id) {
     		if (loged.isLoggedToken(token)==false) {
     			return "{\"success\":401}";
     		}
-    		Long i=0l;
-    		List<Contact2> contacts=contactRepository2.findAll();
-    		for (Contact2 c : contacts) {
-    			if (c.id > i){
-    				i=c.id;
-    			}
-    		}
-    		contactRepository2.save(new Contact2(i+1,timestamp,method,category, requestForAnonimity));
+    		contactRepository2.save(new Contact2(id,timestamp,method,category, requestForAnonimity));
       return "{\"success\":200}";
     }
     
     @RequestMapping(value="/contacts2", method=RequestMethod.GET)
     @ResponseBody
-    public String contacts2Get(@RequestHeader(value="Authotization", required=true) String token) {
+    public String contacts2Get(@RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -264,7 +258,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts2/{id}", method=RequestMethod.GET)
     @ResponseBody
-    public String contacts2Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token) {
+    public String contacts2Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -273,7 +267,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts2/{id}", method=RequestMethod.POST)
     @ResponseBody
-    public String updateContacts2Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token,
+    public String updateContacts2Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token,
     		@RequestParam(value="timestamp", required=false) Long timestamp,
     		@RequestParam(value="method", required=false) String method,
     		@RequestParam(value="category", required=false) String category,
@@ -309,24 +303,18 @@ public class GreetingController {
     		@RequestParam(value="timestamp", required=true) Long timestamp,
     		@RequestParam(value="method", required=true) String method,
     		@RequestParam(value="category", required=true) String category,
-    		@RequestParam(value="requestForAnonimity", required=true) String requestForAnonimity) {
+    		@RequestParam(value="requestForAnonimity", required=true) String requestForAnonimity,
+    		@RequestParam(value="id", required=true) Long id) {
     		if (loged.isLoggedToken(token)==false) {
     			return "{\"success\":401}";
     		}
-    		Long i=0l;
-    		List<Contact3> contacts=contactRepository3.findAll();
-    		for (Contact3 c : contacts) {
-    			if (c.id > i){
-    				i=c.id;
-    			}
-    		}
-    		contactRepository3.save(new Contact3(i+1,timestamp,method,category, requestForAnonimity));
+    		contactRepository3.save(new Contact3(id,timestamp,method,category, requestForAnonimity));
       return "{\"success\":200}";
     }
     
     @RequestMapping(value="/contacts3", method=RequestMethod.GET)
     @ResponseBody
-    public String contacts3Get(@RequestHeader(value="Authotization", required=true) String token) {
+    public String contacts3Get(@RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -344,7 +332,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts3/{id}", method=RequestMethod.GET)
     @ResponseBody
-    public String contacts3Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token) {
+    public String contacts3Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -353,7 +341,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts3/{id}", method=RequestMethod.POST)
     @ResponseBody
-    public String updateContacts3Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token,
+    public String updateContacts3Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token,
     		@RequestParam(value="timestamp", required=false) Long timestamp,
     		@RequestParam(value="method", required=false) String method,
     		@RequestParam(value="category", required=false) String category,
@@ -389,24 +377,19 @@ public class GreetingController {
     		@RequestParam(value="timestamp", required=true) Long timestamp,
     		@RequestParam(value="method", required=true) String method,
     		@RequestParam(value="category", required=true) String category,
-    		@RequestParam(value="requestForAnonimity", required=true) String requestForAnonimity) {
+    		@RequestParam(value="requestForAnonimity", required=true) String requestForAnonimity,
+    		@RequestParam(value="id", required=true) Long id) {
     		if (loged.isLoggedToken(token)==false) {
     			return "{\"success\":401}";
     		}
-    		Long i=0l;
-    		List<Contact4> contacts=contactRepository4.findAll();
-    		for (Contact4 c : contacts) {
-    			if (c.id > i){
-    				i=c.id;
-    			}
-    		}
-    		contactRepository4.save(new Contact4(i+1,timestamp,method,category, requestForAnonimity));
+
+    		contactRepository4.save(new Contact4(id,timestamp,method,category, requestForAnonimity));
       return "{\"success\":200}";
     }
     
     @RequestMapping(value="/contacts4", method=RequestMethod.GET)
     @ResponseBody
-    public String contacts4Get(@RequestHeader(value="Authotization", required=true) String token) {
+    public String contacts4Get(@RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -424,7 +407,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts4/{id}", method=RequestMethod.GET)
     @ResponseBody
-    public String contacts4Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token) {
+    public String contacts4Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -433,7 +416,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts4/{id}", method=RequestMethod.POST)
     @ResponseBody
-    public String updateContacts4Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authotization", required=true) String token,
+    public String updateContacts4Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token,
     		@RequestParam(value="timestamp", required=false) Long timestamp,
     		@RequestParam(value="method", required=false) String method,
     		@RequestParam(value="category", required=false) String category,
