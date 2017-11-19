@@ -78,7 +78,7 @@
                             "title": "Nickname"
                         },
                         "sex": {
-                            "type": "string",
+                            type: "string",
                             "title": "Sex",
                             "enum": [
                                 "Male",
@@ -157,6 +157,16 @@
                         "reasonDescription": {
                             "type": "string",
                             "title": "Description"
+                        }
+                    }
+                },
+                "referral": {
+                    "type": "string",
+                    "title": "Referral",
+                    "properties": {
+                        "referredTo": {
+                            "type": "string",
+                            "title": "Referral"
                         }
                     }
                 },
