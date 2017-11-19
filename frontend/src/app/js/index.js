@@ -7,6 +7,7 @@ import LoginView from './views/login';
 import ContactsView from './views/contacts';
 import FormView from './views/form';
 import StatsView from './views/stats';
+import AdminView from './views/admin';
 import LogoutView from './views/logout';
 import Header from './views/navigation/header';
 import Footer from './views/navigation/footer';
@@ -49,6 +50,10 @@ export default class App extends Component {
 								<Route
 									path="/stats"
 									component={StatsView}
+								/>
+								<Route
+									path="/admin"
+									component={AdminView}
 								/>
 								<Route
 									path="/logout"

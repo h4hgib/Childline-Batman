@@ -29,5 +29,13 @@ export default {
 		params: [
 			'id'
 		]
+	},
+	createUser: {
+		url: `/auth/register`,
+		method: 'post',
+		params: [
+			'username',
+			'password'
+		]
 	}
 };

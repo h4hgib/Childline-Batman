@@ -1,0 +1,12 @@
+{
+  "username": {
+    "ui:autofocus": true,
+    "ui:emptyValue": ""
+  },
+  "password": {
+    "ui:widget": "password"
+  },
+  "repeatPassword": {
+    "ui:widget": "password"
+  }
+}

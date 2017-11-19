@@ -79,3 +79,51 @@ export function logout() {
 		});
 	};
 }
+
+function createUserFailure(err) {
+	return {
+		type: types.CREATE_USER_FAILURE,
+		action: {
+			newUserData: null,
+			errorMessage: err.message
+		}
+	};
+}
+
+function createUserSuccess(data) {
+	return {
+		type: types.CREATE_USER_SUCCESS,
+		action: {
+			newUserData: data,
+			errorMessage: null
+		}
+	};
+}
+
+export function createUser(username, password) {
+	return dispatch => {
+		dispatch({type: types.CREATE_USER_REQUEST});
+
+		let data = new FormData();
+		data.append('username', username);
+		data.append('password', password);
+
+		const request = {
+			url: endpoints['createUser'].url,
+			method: endpoints['createUser'].method,
+			data: data
+		};
+
+		axios(request)
+			.then(response => {
+				const userData = {
+					username: username
+				};
+
+				dispatch(createUserSuccess(userData));
+			}).catch(error => {
+				console.log('Error logging in: ', error);
+				dispatch(createUserFailure(error));
+			});
+	};
+}

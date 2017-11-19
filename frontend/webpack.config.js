@@ -10,7 +10,7 @@ const config = {
 	output: {
 		path: BUILD_DIR,
 		filename: 'bundle.js',
-		publicPath: 'http://localhost:3001/'
+		publicPath: 'http://10.10.2.249:3001/'
 	},
 	devtool: 'source-map',
 	devServer: {
@@ -20,7 +20,7 @@ const config = {
 		historyApiFallback: {
 			index: './index.html'
 		},
-		publicPath: 'http://localhost:3001/',
+		publicPath: 'http://10.10.2.249:3001/',
 		hot: true,
 		quiet: false,
 		noInfo: false

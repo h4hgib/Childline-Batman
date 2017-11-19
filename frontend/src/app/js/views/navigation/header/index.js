@@ -32,8 +32,11 @@ class Header extends Component {
 						<LinkContainer to="/stats" exact>
 							<NavItem eventKey={3}>Statistics</NavItem>
 						</LinkContainer>
+						<LinkContainer to="/admin" exact>
+							<NavItem eventKey={4}>Admin</NavItem>
+						</LinkContainer>
 						<LinkContainer to="/logout" exact>
-							<NavItem eventKey={4}>Log out</NavItem>
+							<NavItem eventKey={5}>Log out</NavItem>
 						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>

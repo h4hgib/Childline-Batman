@@ -1,0 +1,25 @@
+{
+	"title": "Create user",
+	"description": "Creates a user.",
+	"type": "object",
+	"required": [
+		"username",
+		"password"
+	],
+	"properties": {
+		"username": {
+			"type": "string",
+			"title": "Username"
+		},
+		"password": {
+			"type": "string",
+			"title": "Password",
+      "minLength": 3
+		},
+		"repeatPassword": {
+			"type": "string",
+			"title": "Repeat the password",
+      "minLength": 3
+		}
+	}
+}
