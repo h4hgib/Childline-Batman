@@ -4,16 +4,23 @@
 			"ui:widget": "textarea"
 		}
 	},
-	"arrestingOfficerDetails": {
-		"ui:widget": "textarea"
+	"arrestingOfficers": {
+		"items": {
+			"details": {
+				"ui:widget": "textarea"
+			}
+		}
 	},
-	"timestamp": {
+	"notificationDateTime": {
 		"ui:widget": "alt-datetime"
 	},
 	"caseNotes": {
 		"ui:widget": "textarea"
 	},
 	"actionTaken": {
+		"ui:widget": "textarea"
+	},
+	"comments": {
 		"ui:widget": "textarea"
 	}
 }

@@ -4,47 +4,70 @@
 	"type": "object",
 	"properties": {
 		"appropiateAdultName": {
-			"type": "string"
+			"type": "string",
+			"title": "Appropiate adult Name"
 		},
 		"custodySergeantName": {
-			"type": "string"
+			"type": "string",
+			"title": "Custody sergeant Name"
 		},
 		"appropiateAdultReason": {
-			"type": "string"
+			"type": "string",
+			"title": "Appropiate adult Reason"
 		},
 		"minorFirstName": {
-			"type": "string"
+			"type": "string",
+			"title": "First name minor"
 		},
 		"minorMiddleName": {
-			"type": "string"
+			"type": "string",
+			"title": "Middle name minor"
 		},
 		"minorLastName": {
-			"type": "string"
+			"type": "string",
+			"title": "Last name minor"
 		},
 		"dob": {
-			"type": "string"
+			"type": "string",
+			"title": "DOB"
 		},
 		"gender": {
 			"type": "string",
+			"title": "Gender",
 			"enum": [
 				"M",
 				"F"
 			]
 		},
 		"arrestReason": {
-			"type": "string"
+			"type": "string",
+			"title": "Reason for arrest"
 		},
-		"arrestingOfficerName": {
-			"type": "string"
-		},
-		"arrestingOfficerNumber": {
-			"type": "string"
-		},
-		"arrestingOfficerDetails": {
-			"type": "string"
-		},
+		"arrestingOfficers": {
+			"type": "array",
+			"title": "Arresting Officer(s)",
+			"items": {
+				"type": "object",
+				"properties": {
+					"name": {
+						"type": "string",
+						"title": "Arresting officer name"
+					},
+					"number": {
+						"type": "string",
+						"title": "Arresting officer number"
+					},
+					"details": {
+						"type": "string",
+						"title": "Arresting officer details"
+					}
+				}
+			}
+		}
+		,
 		"interviewed": {
 			"type": "string",
+			"title": "Interviewed",
 			"enum": [
 				"Y",
 				"N"
@@ -52,13 +75,17 @@
 		},
 		"interviewers": {
 			"type": "array",
+			"title": "Interviewers",
 			"items": {
 				"type": "object",
-				"parameters": {
+				"properties": {
 					"name": {
 						"type": "string"
 					},
 					"number": {
+						"type": "string"
+					},
+					"details": {
 						"type": "string"
 					}
 				}
@@ -73,6 +100,7 @@
 		},
 		"searched": {
 			"type": "string",
+			"title": "Rights read to minor in your presence",
 			"enum": [
 				"Y",
 				"N"
@@ -80,15 +108,17 @@
 		},
 		"injuries": {
 			"type": "array",
+			"title": "Injuries",
 			"items": {
 				"type": "string"
 			}
 		},
 		"involved": {
 			"type": "array",
+			"title": "Name of any other people involved when arrested",
 			"items": {
 				"type": "object",
-				"parameters": {
+				"properties": {
 					"name": {
 						"type": "string"
 					},
@@ -99,13 +129,16 @@
 			}
 		},
 		"caseNotes": {
-			"type": "string"
+			"type": "string",
+			"title": "Case notes"
 		},
 		"actionTaken": {
-			"type": "string"
+			"type": "string",
+			"title": "Your action (if any) taken"
 		},
 		"patrickCanessaInformed": {
 			"type": "string",
+			"title": "Was Patrick Canessa informed",
 			"enum": [
 				"Y",
 				"N"
@@ -113,17 +146,20 @@
 		},
 		"notificationDateTime": {
 			"type": "string",
+			"title": "Time of notification",
 			"format": "date-time"
 		},
 		"lawyerOffered": {
 			"type": "string",
+			"title": "Has the DJ been offered the services of a lawyer by the AA volunteer",
 			"enum": [
 				"Y",
 				"N"
 			]
 		},
 		"comments": {
-			"type": "string"
+			"type": "string",
+			"title": "Comments Box"
 		}
 	}
 }

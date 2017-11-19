@@ -9,27 +9,26 @@
 		"diverseCategory": {
 			"type": "string",
 			"title": "Type",
-            "enum": [
-                "Hang up before answering",
-                "Silent Call",
-                "Wrong number",
-                "Abusive",
-                "Other"
-            ]
+				"enum": [
+					"Hang up before answering",
+					"Silent Call",
+					"Wrong number",
+					"Abusive",
+					"Other"
+				]
 		},
 		"details": {
 			"type": "string",
 			"title": "Details"
 		},
 		"followup": {
-            "type": "boolean",
-            "title": "Follow-up needed?",
-            "default": false    
-        },
-        "followupDetails": {
-            "type": "string",
-            "title": "Follow-up Details"
-        }
-		
+			"type": "boolean",
+			"title": "Follow-up needed?",
+			"default": false    
+		},
+		"followupDetails": {
+			"type": "string",
+			"title": "Follow-up Details"
+		}
 	}
 }

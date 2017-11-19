@@ -10,7 +10,6 @@ const handleInput = (component, field, value) => {
 	const newState = {};
 	newState[field] = value;
 	component.setState(newState);
-	
 };
 
 class NewFormView extends Component {
@@ -26,7 +25,11 @@ class NewFormView extends Component {
 		this.handleInput = _.curry(handleInput)(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
-	
+
+	componentDidMount() {
+		this.props.dispatch(clearCurrentContact());
+	}
+
 	handleSubmit(e) {
 		const transformFormData = (formData) => {
 			const clonedFormData = _.cloneDeep(formData);

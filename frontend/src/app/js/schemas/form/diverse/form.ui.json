@@ -1,1 +1,8 @@
-{}
+{
+	"details": {
+		"ui:widget": "textarea"
+	},
+	"followupDetails": {
+		"ui:widget": "textarea"
+	},
+}

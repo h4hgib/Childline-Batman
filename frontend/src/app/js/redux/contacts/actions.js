@@ -52,6 +52,16 @@ export function getContacts() {
 	};
 }
 
+export function clearCurrentContact() {
+	return {
+		type: types.CLEAR_CONTACT,
+		action: {
+			current: null,
+			errorMessage: null
+		}
+	}
+}
+
 function getSingleContactSuccess(data) {
 	return {
 		type: types.GET_CONTACT_SUCCESS,
