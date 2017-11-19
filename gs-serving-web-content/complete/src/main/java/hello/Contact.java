@@ -1,5 +1,6 @@
 package hello;
 
+import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 
 public class Contact {
@@ -31,4 +32,13 @@ public class Contact {
                 id, timestamp, method,category, requestForAnonimity);
     }
 
+    public JSONObject toJson() {
+    	JSONObject lala = new JSONObject();
+    	lala.append("id", this.id);
+    	lala.append("timestamp", this.timestamp);
+    	lala.append("method", this.method);
+    	lala.append("requestForAnonimity", this.requestForAnonimity);
+		return lala;
+    	
+    }
 }

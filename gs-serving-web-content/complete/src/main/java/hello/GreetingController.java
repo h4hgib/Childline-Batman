@@ -2,7 +2,9 @@ package hello;
 
 import java.util.List;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -33,34 +35,41 @@ public class GreetingController {
 	
 	private Logged loged=new Logged();
 	
-	@RequestMapping(value="/auth/register", method=RequestMethod.POST)
+	@RequestMapping(value="/auth/register", method=RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public String register(@RequestHeader(value="Authorization", required=true) String token,@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password) {
+		JSONObject json=new JSONObject();
 		if (loged.isLoggedToken(token)==false) {
-			return "{\"success\":401}";
+			return json.append("success", 401).toString();
 		}
 		userRepository.save(new User(username, password));
-		return "{\"success\":200}";
+		return json.append("success", 200).toString();
     }
   
-    @RequestMapping(value="/auth/login", method=RequestMethod.POST)
+    @RequestMapping(value="/auth/login", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public String login(@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password, Model model) {
+		JSONObject json = new JSONObject();
     	String token="";
 	try {
     		token=loged.logIn(username, password,userRepository.findByUsername(username));
 	}
     	catch(NullPointerException e) {
-    		return "{\"success\":401}"; 
+    		return json.append("success", 401).toString(); 
     	}
-    		return "{\"token:\":\""+token+"\", \"userData\": {\"username\": " + username + "}}";
+		JSONObject json2 = new JSONObject();
+		json2.append("username", username);
+		json.append("token", token);
+		json.append("userData", json2);
+    		return json.toString();
     }
     
     @RequestMapping(value="/auth/logout", method=RequestMethod.POST)
     @ResponseBody
     public String logout(@RequestParam(value="username", required=true) String username, Model model) {
     		loged.logOut(username);
-    		return "{\"success\":200}";
+    		JSONObject json = new JSONObject();
+    		return json.append("success", 200).toString();
     }
 
     //contact
@@ -71,16 +80,14 @@ public class GreetingController {
     		@RequestParam(value="method", required=true) String method,
     		@RequestParam(value="category", required=true) String category,
     		@RequestParam(value="requestForAnonimity", required=true) String requestForAnonimity) {
-    		if (loged.isLoggedToken(token)==false) {
-    			return "{\"success\":401}";
-    		}
+    		JSONObject json = new JSONObject();
+		if (loged.isLoggedToken(token)==false) {
+		json.append("success", 401);
+		return json.toString();
+	}
     		Long i=0l;
     		List<Contact> contacts=contactRepository.findAll();
-    		System.out.println(contacts.size());
     		for (Contact c : contacts) {
-    			System.out.println(c);
-    			System.out.println(c.id);
-    			System.out.println(i);
     			if(c.id!=null) {
     				if (c.id.compareTo(i)>0){
         				i=c.id;
@@ -88,34 +95,31 @@ public class GreetingController {
     			}
     		}
     		contactRepository.save(new Contact(i+1,timestamp,method,category, requestForAnonimity));
-      return "{\"success\":200}";
+      return json.append("success", 200).toString();
     }
     
     @RequestMapping(value="/contacts", method=RequestMethod.GET)
     @ResponseBody
     public String contactsGet(@RequestHeader(value="Authorization", required=true) String token) {
-    	if (loged.isLoggedToken(token)==false) {
-			return "{\"success\":401}";
+		JSONObject json = new JSONObject();
+    		if (loged.isLoggedToken(token)==false) {
+    		json.append("success", 401);
+			return json.toString();
 		}
     	List<Contact> contacts=contactRepository.findAll();
-      StringBuilder sb =new StringBuilder("[") ;
-      if (!contacts.isEmpty()) {
-      	for(int i =1; i< contacts.size(); i++) {
-			 sb.append(",");
-			 sb.append(contacts.get(i).toString());
-		 }
-      	}
-      sb.append("]");
-      return sb.toString();
+    	json.append("data", contacts);
+      return json.toString();
     }
     
     @RequestMapping(value="/contacts/{id}", method=RequestMethod.GET)
     @ResponseBody
     public String contactsWparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token) {
+    	JSONObject json = new JSONObject();
     	if (loged.isLoggedToken(token)==false) {
-			return "{\"success\":401}";
+    		json.append("success", 401);
+    		return json.toString();
 		}
-      return contactRepository.findById(id).toString();
+      return contactRepository.findById(id).toJson().toString();
     }
     
     @RequestMapping(value="/contacts/{id}", method=RequestMethod.POST)
@@ -125,8 +129,11 @@ public class GreetingController {
     		@RequestParam(value="method", required=false) String method,
     		@RequestParam(value="category", required=false) String category,
     		@RequestParam(value="requestForAnonimity", required=false) String requestForAnonimity) {
+    	
+    	JSONObject json = new JSONObject();
     	if (loged.isLoggedToken(token)==false) {
-			return "{\"success\":401}";
+    		json.append("success", 401);
+    		return json.toString();
 		}
     	Contact contact =contactRepository.findById(id);
     if(timestamp!=null) {
@@ -145,7 +152,8 @@ public class GreetingController {
 		contact.requestForAnonimity=requestForAnonimity;
 		contactRepository.save(contact);
     }
-      return "{\"success\":200}";
+    json.append("success", 200);
+	return json.toString();
     }
     
     //contact1
@@ -157,38 +165,38 @@ public class GreetingController {
     		@RequestParam(value="followup", required=true) String followup,
     		@RequestParam(value="followupDetails", required=true) String followupDetails,
     		@RequestParam(value="id", required=true) Long id) {
+    	JSONObject json=new JSONObject();
     		if (loged.isLoggedToken(token)==false) {
-    			return "{\"success\":401}";
+    			json.append("success", 401);
+        		return json.toString();
     		}
     		contactRepository1.save(new Contact1(id,diverseCategory,details,followup, followupDetails));
-      return "{\"success\":200}";
+    		json.append("success", 200);
+    		return json.toString();
     }
     
     @RequestMapping(value="/contacts1", method=RequestMethod.GET)
     @ResponseBody
     public String contacts1Get(@RequestHeader(value="Authorization", required=true) String token) {
+    	JSONObject json=new JSONObject();
     	if (loged.isLoggedToken(token)==false) {
-			return "{\"success\":401}";
+    		json.append("success", 401);
+    		return json.toString();
 		}
     	List<Contact1> contacts=contactRepository1.findAll();
-      StringBuilder sb =new StringBuilder("[") ;
-      if (!contacts.isEmpty()) {
-      	for(int i =1; i< contacts.size(); i++) {
-			 sb.append(",");
-			 sb.append(contacts.get(i).toString());
-		 }
-      	}
-      sb.append("]");
-      return sb.toString();
+    	json.append("data", contacts);
+        return json.toString();
     }
     
     @RequestMapping(value="/contacts1/{id}", method=RequestMethod.GET)
     @ResponseBody
     public String contacts1Wparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="Authorization", required=true) String token) {
+    JSONObject json=new JSONObject();
     	if (loged.isLoggedToken(token)==false) {
-			return "{\"success\":401}";
+    		json.append("success", 401);
+    		return json.toString();
 		}
-      return contactRepository1.findById(id).toString();
+      return contactRepository1.findById(id).toJson().toString();
     }
     
     @RequestMapping(value="/contacts1/{id}", method=RequestMethod.POST)
@@ -198,8 +206,10 @@ public class GreetingController {
     		@RequestParam(value="details", required=true) String details,
     		@RequestParam(value="followup", required=true) String followup,
     		@RequestParam(value="followupDetails", required=true) String followupDetails) {
+    	JSONObject json = new JSONObject();
     	if (loged.isLoggedToken(token)==false) {
-			return "{\"success\":401}";
+    		json.append("success", 401);
+    		return json.toString();
 		}
     	Contact1 contact =contactRepository1.findById(id);
     if(diverseCategory!=null) {
@@ -218,7 +228,8 @@ public class GreetingController {
 		contact.followupDetails=followupDetails;
 		contactRepository1.save(contact);
     }
-      return "{\"success\":200}";
+    json.append("success", 200);
+	return json.toString();
     }
     
     //contact2

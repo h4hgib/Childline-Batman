@@ -1,5 +1,6 @@
 package hello;
 
+import org.json.JSONObject;
 import org.springframework.data.annotation.Id;
 
 public class Contact1 {
@@ -30,6 +31,17 @@ public class Contact1 {
         return String.format(
                 "Contact{id=%s, diverseCategory='%s', details='%s', followup='%s', followupDetails='%s'}",
                 id, diverseCategory, details,followup, followupDetails);
+    }
+    
+    public JSONObject toJson() {
+    	JSONObject lala = new JSONObject();
+    	lala.append("id", this.id);
+    	lala.append("diverseCategory", this.diverseCategory);
+    	lala.append("details", this.details);
+    	lala.append("followup", this.followup);
+    	lala.append("followupDetails", this.followupDetails);
+		return lala;
+    	
     }
 
 }
