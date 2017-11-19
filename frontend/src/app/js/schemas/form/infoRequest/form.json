@@ -1,0 +1,186 @@
+{
+	"title": "Request for Information input",
+	"description": "This data is to be filled on request for information contacts",
+	"type": "object",
+	"required": "volunteerName",
+	"properties": {
+        "callerDetails": {
+            "type" : "object",
+            "title": "Caller Details",
+            "properties": {
+                "callerName": {
+                    "type": "string",
+                    "title": "Name"
+                },
+                "callerPhone": {
+                    "type": "string",
+                    "title": "Telephone Number",
+                    "minLength": 10
+                },
+                "callerAddress": {
+                    "type": "string",
+                    "title": "Address"
+                }
+            }
+        },
+        "childrenDetails": {
+            "type": "object",
+            "title": "Children Details",
+            "properties": {
+                "familyName": {
+                    "type": "string",
+                    "title": "Family Name"
+                },
+                "motherName": {
+                    "type": "string",
+                    "title": "Name of Mother"
+                },
+                "fatherName": {
+                    "type": "string",
+                    "title": "Name of Father"
+                },
+                "lastName": {
+                    "type": "strig",
+                    "title": "Last Name"
+                },
+                "address": {
+                    "type": "string",
+                    "title": "Address"
+                },
+                "firstChildDetails": {
+                    "type": "object",
+                    "title": "First Child Details",
+                    "required": [
+                        "age",
+                        "sex"
+                    ],
+                    "properties": {
+                        "age": {
+                            "type": "string",
+                            "title": "Age *",
+                            "enum": [
+                                "0-1",
+                                "2-4",
+                                "5-8",
+                                "9-12",
+                                "13-16",
+                                "17",
+                                "18",
+                                "Adult",
+                                "Unknown"
+                            ]
+                        },
+                        "nickname": {
+                            "type": "string",
+                            "title": "Nickname"
+                        },
+                        "sex": {
+                            type: "string",
+                            "title": "Sex",
+                            "enum": [
+                                "Male",
+                                "Female",
+                                "Unknown"
+                            ]
+                        }
+                    }
+                },
+                "reasonDetails": {
+                    "type": "object",
+                    "title": "Reason of Contact Details",
+                    "properties": {
+                        "primary": {
+                            "type": "string",
+                            "title": "Primary reason of contact",
+                            "enum": [
+                                "Alcohol abuse",
+                                "Bullying"
+                                "Depression",
+                                "Domestic Violence",
+                                "Eating disorder,
+                                "Education",
+                                "Emotional abuse",
+                                "Exam stress",
+                                "Family relationships",
+                                "Gender Issues",
+                                "Grieve",
+                                "Health issue",
+                                "Historice Abuse",
+                                "Mental Health",
+                                "Neglect",
+                                "Peer relationships",
+                                "Physical Abuse",
+                                "Self Harm",
+                                "Sexual abuse",
+                                "Substance abuse",
+                                "Suicide",
+                                "Support/General",
+                                "Teen Pregnancies",
+                                "Unsafe Housing conditions",
+                                "Add Other"
+                            ]
+                        },
+                        "secondary": {
+                            "type": "string",
+                            "title": "Secondary reason of contact",
+                            "enum": [
+                                "Alcohol abuse",
+                                "Bullying"
+                                "Depression",
+                                "Domestic Violence",
+                                "Eating disorder,
+                                "Education",
+                                "Emotional abuse",
+                                "Exam stress",
+                                "Family relationships",
+                                "Gender Issues",
+                                "Grieve",
+                                "Health issue",
+                                "Historice Abuse",
+                                "Mental Health",
+                                "Neglect",
+                                "Peer relationships",
+                                "Physical Abuse",
+                                "Self Harm",
+                                "Sexual abuse",
+                                "Substance abuse",
+                                "Suicide",
+                                "Support/General",
+                                "Teen Pregnancies",
+                                "Unsafe Housing conditions",
+                                "Add Other"
+                            ]
+                        },
+                        "reasonDescription": {
+                            "type": "string",
+                            "title": "Description"
+                        }
+                    }
+                },
+                "followupNeeded": {
+                    "type": "boolean",
+                    "title": "Follow-up needed?"
+                },
+                "followupDetails": {
+                    "type": "string",
+                    "title": "Follow-up Details",
+                    "properties": {
+                        "followupDetails": {
+                            "type": "string",
+                            "title": "Follow-up Details"
+                        },
+                        "asap": {
+                            "type": "boolean",
+                            "title": "ASAP",
+                            "default": false
+                        },
+                        "deadlineDate": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                }
+            }
+        }
+	}
+}
