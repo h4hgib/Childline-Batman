@@ -17,6 +17,7 @@ public class Contact3 {
     public Contact3() {}
 
     public Contact3(Long id,Long timestamp, String method, String category, String requestForAnonimity) {
+    		this.id = id;
         this.timestamp = timestamp;
         this.method = method;
         this.category = category;
