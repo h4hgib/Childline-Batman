@@ -23,6 +23,13 @@ export default {
 			'TBD'
 		]
 	},
+	updateContact: {
+		url: `/contacts/:id`,
+		method: 'post',
+		payload: [
+			'TBD'
+		]
+	},
 	singleContact: {
 		url: `/contacts/:id`,
 		method: 'get',

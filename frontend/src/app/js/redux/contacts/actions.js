@@ -209,6 +209,50 @@ export function postContact(data) {
 	};
 }
 
+function updateContactSuccess(data) {
+	return {
+		type: types.UPDATE_CONTACT_SUCCESS,
+		action: {}
+	};
+}
+
+function updateContactFailure(error) {
+	return {
+		type: types.UPDATE_CONTACT_FAILURE,
+		action: {}
+	};
+}
+
+export function updateContact(data) {
+	return dispatch => {
+		dispatch({
+			type: types.UPDATE_CONTACT_REQUEST,
+			action: {}
+		});
+
+		let data = new FormData();
+		data.append('data', data);
+
+		const request = {
+			url: endpoints['updateContact'].url.replace(':id', data.id),
+			method: endpoints['updateContact'].method,
+			data: data
+		};
+
+		axios(request)
+			.then(response => {
+				const userData = {
+					username: username
+				};
+
+				dispatch(updateContactSuccess(userData));
+			}).catch(error => {
+				console.log('Error logging in: ', error);
+				dispatch(updateContactFailure(error));
+			});
+	};
+}
+
 function getStatsSuccess(data) {
 	return {
 		type: types.GET_STATS_SUCCESS,

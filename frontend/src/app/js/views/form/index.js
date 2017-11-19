@@ -5,7 +5,7 @@ import {PageHeader} from 'react-bootstrap';
 import _ from 'lodash';
 import Form from 'react-jsonschema-form'
 
-import {getSingleContact, updateContact} from '../../redux/contacts/actions.js';
+import {getSingleContact, postContact} from '../../redux/contacts/actions.js';
 
 import diverseSchema from '../../schemas/form/diverse/form.json';
 import diverseUiSchema from '../../schemas/form/diverse/form.ui.json';
@@ -16,9 +16,11 @@ import infoRequestUiSchema from '../../schemas/form/infoRequest/form.ui.json';
 import appropiateAdultSchema from '../../schemas/form/appropiateAdult/form.json';
 import appropiateAdultUiSchema from '../../schemas/form/appropiateAdult/form.ui.json';
 
-const handleInput = (component, field, value) => {
+const handleInput = (component, field,  value) => {
+	console.log('handleInput', component, field, value);
+	const transform = (({formData}) => formData);
 	const newState = {};
-	newState[field] = value;
+	newState[field] = transform(value);
 	component.setState(newState);
 };
 
