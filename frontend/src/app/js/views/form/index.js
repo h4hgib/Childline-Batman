@@ -3,6 +3,8 @@ import Proptypes from 'prop-types';
 import {connect} from 'react-redux';
 import {PageHeader} from 'react-bootstrap';
 import _ from 'lodash';
+import Form from 'react-jsonschema-form'
+
 import {getSingleContact, updateContact} from '../../redux/contacts/actions.js';
 
 import diverseSchema from '../../schemas/form/diverse/form.json';
@@ -13,6 +15,12 @@ import infoRequestSchema from '../../schemas/form/infoRequest/form.json';
 import infoRequestUiSchema from '../../schemas/form/infoRequest/form.ui.json';
 import appropiateAdultSchema from '../../schemas/form/appropiateAdult/form.json';
 import appropiateAdultUiSchema from '../../schemas/form/appropiateAdult/form.ui.json';
+
+const handleInput = (component, field, value) => {
+	const newState = {};
+	newState[field] = value;
+	component.setState(newState);
+};
 
 class FormView extends Component {
 	constructor(props) {
@@ -31,10 +39,11 @@ class FormView extends Component {
 	}
 
 	componentDidMount() {
-		this.props.dispatch(getSingleContact(this.props.params.id));
+		this.props.dispatch(getSingleContact(this.props.match.params.id));
 	}
 
 	componentWillReceiveProps(nextProps) {
+		console.log('componentWillReceiveProps', nextProps);
 		if(this.props.current !== nextProps.current && nextProps.current) {
 			const stateItem = {
 				formData: nextProps.current
@@ -50,9 +59,11 @@ class FormView extends Component {
 				stateItem.schema = infoRequestSchema;
 				stateItem.uiSchema = infoRequestUiSchema;
 			} else if (nextProps.current.category === 'Appropiate Adult') {
-			} else {
 				stateItem.schema = appropiateAdultSchema;
 				stateItem.uiSchema = appropiateAdultUiSchema;
+			} else {
+				stateItem.schema = null;
+				stateItem.uiSchema = null;
 			}
 			this.setState(stateItem);
 		}

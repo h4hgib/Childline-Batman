@@ -4,6 +4,7 @@ import axios from 'axios';
 import config from '../../../config.json';
 
 function loginUserSuccess(userData) {
+	console.log('loginUserSuccess', userData);
 	return {
 		type: types.LOGIN_USER_SUCCESS,
 		action: {
@@ -56,10 +57,14 @@ export function loginUser(username, password) {
 
 		axios(request)
 			.then(response => {
+				console.log('response.data', response.data);
 				const userData = {
 					token: response.data.token,
 					userData: response.data.userData
 				};
+				if (!response.data.userData) {
+					throw 'Bad login';
+				}
 
 				dispatch(loginUserSuccess(userData));
 			}).catch(error => {

@@ -3,7 +3,7 @@ import Proptypes from 'prop-types';
 import {connect} from 'react-redux';
 import {PageHeader} from 'react-bootstrap';
 import _ from 'lodash';
-import {postContact} from '../../redux/contacts/actions.js';
+import {postContact, clearCurrentContact} from '../../redux/contacts/actions.js';
 import CommonDataInput from './subcomponents/commonDataInput';
 
 const handleInput = (component, field, value) => {

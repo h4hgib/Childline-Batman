@@ -1,6 +1,46 @@
 import * as types from './actionTypes.js';
 import endpoints from '../../core/endpoints';
 import axios from 'axios';
+import config from '../../../config.json';
+import _ from 'lodash';
+
+const list = [{
+						id: 1,
+						timestamp: 1511013857000,
+						contactMethod: "phone",
+						category: "Request for Information",
+						requestAnonimity: "YES",
+						sex: "M",
+						age: 12,
+						primaryReason: "Neglect",
+						secondaryReason: []
+					},
+					{
+						id: 2,
+						timestamp: 1511013857000,
+						contactMethod: "chat",
+						category: "Diverse",
+						requestAnonimity: "NO",
+						option: "Silent call"
+					},
+					{
+						id: 3,
+						timestamp: 1511013857000,
+						contactMethod: "email",
+						category: "Referral",
+						requestAnonimity: "?",
+						sex: "F",
+						age: 15,
+						primaryReason: "Bullying",
+						secondaryReason: ["Suicide", "Teen Pregnancy"]
+					},
+					{
+						id: 4,
+						timestamp: 1511013857000,
+						contactMethod: "chat",
+						category: "Appropiate Adult",
+						requestAnonimity: "NO"
+					}];
 
 function getContactsSuccess(data) {
 	return {
@@ -34,17 +74,23 @@ export function getContacts() {
 
 		const request = {
 			url: endpoints['contactsList'].url,
-			method: endpoints['contactsList'].method,
-			data: data
+			method: endpoints['contactsList'].method
 		};
+
+		if (config.fakeBackend) {
+			dispatch({
+				type: types.GET_CONTACT_LIST_SUCCESS,
+				action: {
+					list: list,
+					errorMessage: null
+				}
+			})
+			return;
+		}
 
 		axios(request)
 			.then(response => {
-				const userData = {
-					username: username
-				};
-
-				dispatch(getContactsSuccess(userData));
+				dispatch(getContactsSuccess(response));
 			}).catch(error => {
 				console.log('Error logging in: ', error);
 				dispatch(getContactsFailure(error));
@@ -87,9 +133,22 @@ export function getSingleContact(id) {
 
 		const request = {
 			url: endpoints['singleContact'].url.replace(':id', id),
-			method: endpoints['singleContact'].method,
-			data: data
+			method: endpoints['singleContact'].method
 		};
+
+
+		if (config.fakeBackend) {
+			dispatch({
+				type: types.GET_CONTACT_SUCCESS,
+				action: {
+					current: _.find(list, (item) => {
+						return item.id === parseInt(id);
+					}),
+					errorMessage: null
+				}
+			})
+			return;
+		}
 
 		axios(request)
 			.then(response => {
@@ -173,8 +232,7 @@ export function getStats() {
 
 		const request = {
 			url: endpoints['getStats'].url,
-			method: endpoints['getStats'].method,
-			data: data
+			method: endpoints['getStats'].method
 		};
 
 		axios(request)

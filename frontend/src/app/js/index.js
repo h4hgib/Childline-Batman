@@ -29,7 +29,7 @@ export default class App extends Component {
 							path="/"
 							component={Header}
 						/>
-						<div className="container">
+						<div className="container" style={{marginBottom: '60px'}}>
 							<Switch>
 								<Route
 									exact
@@ -45,7 +45,7 @@ export default class App extends Component {
 									component={ContactsView}
 								/>
 								<Route
-									path="/form"
+									path="/newForm"
 									component={NewFormView}
 								/>
 								<Route

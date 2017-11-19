@@ -26,7 +26,7 @@ class Header extends Component {
 						<LinkContainer to="/contacts" exact>
 							<NavItem eventKey={1}>Previous Contacts</NavItem>
 						</LinkContainer>
-						<LinkContainer to="/form" exact>
+						<LinkContainer to="/newForm" exact>
 							<NavItem eventKey={2}>Register Contact</NavItem>
 						</LinkContainer>
 						<LinkContainer to="/stats" exact>

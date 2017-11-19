@@ -23,6 +23,7 @@ const contactsReducer = (state = initialState, action) => {
 		case types.POST_CONTACT_FAILURE:
 		case types.POST_CONTACT_REQUEST:
 		case types.POST_CONTACT_SUCCESS:
+		case types.CLEAR_CONTACT:
 			return Object.assign({}, state, {
 				current: action.action.current,
 				errorMessage: action.action.errorMessage
