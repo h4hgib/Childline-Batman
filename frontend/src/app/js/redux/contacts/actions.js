@@ -1,17 +1,24 @@
 import * as types from './actionTypes.js';
+import endpoints from '../../core/endpoints';
 import axios from 'axios';
 
 function getContactsSuccess(data) {
 	return {
 		type: types.GET_CONTACTS_SUCCESS,
-		action: {}
+		action: {
+			list: data.data,
+			errorMessage: null
+		}
 	};
 }
 
 function getContactsFailure(error) {
 	return {
 		type: types.GET_CONTACTS_FAILURE,
-		action: {}
+		action: {
+			list: [],
+			errorMessage: error.message
+		}
 	};
 }
 
@@ -19,15 +26,38 @@ export function getContacts() {
 	return dispatch => {
 		dispatch({
 			type: types.GET_CONTACTS_REQUEST,
-			action: {}
+			action: {
+				list: [],
+				errorMessage: null
+			}
 		});
+
+		const request = {
+			url: endpoints['contactsList'].url,
+			method: endpoints['contactsList'].method,
+			data: data
+		};
+
+		axios(request)
+			.then(response => {
+				const userData = {
+					username: username
+				};
+
+				dispatch(getContactsSuccess(userData));
+			}).catch(error => {
+				console.log('Error logging in: ', error);
+				dispatch(getContactsFailure(error));
+			});
 	};
 }
 
 function getSingleContactSuccess(data) {
 	return {
 		type: types.GET_CONTACT_SUCCESS,
-		action: {}
+		action: {
+			current: data.data
+		}
 	};
 }
 
@@ -38,12 +68,30 @@ function getSingleContactFailure(error) {
 	};
 }
 
-export function getSingleContact() {
+export function getSingleContact(id) {
 	return dispatch => {
 		dispatch({
 			type: types.GET_CONTACT_REQUEST,
 			action: {}
 		});
+
+		const request = {
+			url: endpoints['singleContact'].url.replace(':id', id),
+			method: endpoints['singleContact'].method,
+			data: data
+		};
+
+		axios(request)
+			.then(response => {
+				const userData = {
+					username: username
+				};
+
+				dispatch(getSingleContactSuccess(userData));
+			}).catch(error => {
+				console.log('Error logging in: ', error);
+				dispatch(getSingleContactFailure(error));
+			});
 	};
 }
 
@@ -62,11 +110,33 @@ function postContactFailure(error) {
 }
 
 export function postContact(data) {
+	console.log('postContact', data);
 	return dispatch => {
 		dispatch({
 			type: types.POST_CONTACT_REQUEST,
 			action: {}
 		});
+
+		let data = new FormData();
+		data.append('data', data);
+
+		const request = {
+			url: endpoints['postContact'].url,
+			method: endpoints['postContact'].method,
+			data: data
+		};
+
+		axios(request)
+			.then(response => {
+				const userData = {
+					username: username
+				};
+
+				dispatch(postContactSuccess(userData));
+			}).catch(error => {
+				console.log('Error logging in: ', error);
+				dispatch(postContactFailure(error));
+			});
 	};
 }
 
@@ -90,5 +160,23 @@ export function getStats() {
 			type: types.GET_STATS_REQUEST,
 			action: {}
 		});
+
+		const request = {
+			url: endpoints['getStats'].url,
+			method: endpoints['getStats'].method,
+			data: data
+		};
+
+		axios(request)
+			.then(response => {
+				const userData = {
+					username: username
+				};
+
+				dispatch(getStatsSuccess(userData));
+			}).catch(error => {
+				console.log('Error logging in: ', error);
+				dispatch(getStatsFailure(error));
+			});
 	};
 }

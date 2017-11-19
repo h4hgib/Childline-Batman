@@ -10,7 +10,7 @@ const config = {
 	output: {
 		path: BUILD_DIR,
 		filename: 'bundle.js',
-		publicPath: 'http://10.10.2.249:3001/'
+		publicPath: 'http://0.0.0.0:3001/'
 	},
 	devtool: 'source-map',
 	devServer: {
@@ -20,10 +20,15 @@ const config = {
 		historyApiFallback: {
 			index: './index.html'
 		},
-		publicPath: 'http://10.10.2.249:3001/',
+		publicPath: 'http://0.0.0.0:3001/',
 		hot: true,
 		quiet: false,
-		noInfo: false
+		noInfo: false,
+		headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
+    }
 	},
 	module: {
 		loaders : [

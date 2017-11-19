@@ -5,6 +5,7 @@ import {Router, Route, Switch} from 'react-router-dom';
 import {createBrowserHistory} from 'history';
 import LoginView from './views/login';
 import ContactsView from './views/contacts';
+import NewFormView from './views/newForm';
 import FormView from './views/form';
 import StatsView from './views/stats';
 import AdminView from './views/admin';
@@ -45,6 +46,10 @@ export default class App extends Component {
 								/>
 								<Route
 									path="/form"
+									component={NewFormView}
+								/>
+								<Route
+									path="/form/:id"
 									component={FormView}
 								/>
 								<Route
