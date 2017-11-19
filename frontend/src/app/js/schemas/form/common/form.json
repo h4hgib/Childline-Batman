@@ -25,7 +25,7 @@
 		},
 		"category": {
 			"type": "string",
-			"title": "Request for anonimity",
+			"title": "Category",
 			"enum": [
 				"Diverse",
 				"Referral",
