@@ -1,0 +1,9 @@
+{
+	"childrenDetails": {
+		"reasonDetails": {
+			"reasonDescription": {
+				"ui:widget": "textarea"
+			}
+		}
+	}
+}
