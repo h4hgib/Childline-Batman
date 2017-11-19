@@ -1,0 +1,35 @@
+{
+	"title": "Diverse input",
+	"description": "This data is to be filled on diverse contacts",
+	"type": "object",
+	"required": [
+		"diverseCategory"
+	],
+	"properties": {
+		"diverseCategory": {
+			"type": "string",
+			"title": "Type",
+            "enum": [
+                "Hang up before answering",
+                "Silent Call",
+                "Wrong number",
+                "Abusive",
+                "Other"
+            ]
+		},
+		"details": {
+			"type": "string",
+			"title": "Details"
+		},
+		"followup": {
+            "type": "boolean",
+            "title": "Follow-up needed?",
+            "default": false    
+        },
+        "followupDetails": {
+            "type": "string",
+            "title": "Follow-up Details"
+        }
+		
+	}
+}
