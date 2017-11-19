@@ -1,0 +1,19 @@
+{
+	"injuries": {
+		"items": {
+			"ui:widget": "textarea"
+		}
+	},
+	"arrestingOfficerDetails": {
+		"ui:widget": "textarea"
+	},
+	"timestamp": {
+		"ui:widget": "alt-datetime"
+	},
+	"caseNotes": {
+		"ui:widget": "textarea"
+	},
+	"actionTaken": {
+		"ui:widget": "textarea"
+	}
+}

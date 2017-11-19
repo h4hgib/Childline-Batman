@@ -4,7 +4,7 @@ import axios from 'axios';
 
 function getContactsSuccess(data) {
 	return {
-		type: types.GET_CONTACTS_SUCCESS,
+		type: types.GET_CONTACT_LIST_SUCCESS,
 		action: {
 			list: data.data,
 			errorMessage: null
@@ -14,7 +14,7 @@ function getContactsSuccess(data) {
 
 function getContactsFailure(error) {
 	return {
-		type: types.GET_CONTACTS_FAILURE,
+		type: types.GET_CONTACT_LIST_FAILURE,
 		action: {
 			list: [],
 			errorMessage: error.message
@@ -25,7 +25,7 @@ function getContactsFailure(error) {
 export function getContacts() {
 	return dispatch => {
 		dispatch({
-			type: types.GET_CONTACTS_REQUEST,
+			type: types.GET_CONTACT_LIST_REQUEST,
 			action: {
 				list: [],
 				errorMessage: null

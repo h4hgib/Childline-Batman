@@ -25,21 +25,13 @@ class StatsView extends Component {
 	}
 
 	render() {
+		// The d3 Component hasn't been updated to React 16, so we just cut this off
 		return (<div>
 				<PageHeader>
 					Statistics
 				</PageHeader>
 				<div>
-					<BarStackZoom
-						title= {"Abuse cases"}
-						data= {data}
-						width= {860}
-						height= {640}
-						chartSeries = {chartSeries}
-						x= {x}
-						xScale= {"ordinal"}
-						yTickFormat= {yTickFormat}
-					/>
+					Here be stats
 				</div>
 			</div>);
 	}

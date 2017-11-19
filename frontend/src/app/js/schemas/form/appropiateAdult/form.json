@@ -1,0 +1,129 @@
+{
+	"title": "Appropiate Adult",
+	"description": "This data is to be filled on a Appropiate Adult contact",
+	"type": "object",
+	"properties": {
+		"appropiateAdultName": {
+			"type": "string"
+		},
+		"custodySergeantName": {
+			"type": "string"
+		},
+		"appropiateAdultReason": {
+			"type": "string"
+		},
+		"minorFirstName": {
+			"type": "string"
+		},
+		"minorMiddleName": {
+			"type": "string"
+		},
+		"minorLastName": {
+			"type": "string"
+		},
+		"dob": {
+			"type": "string"
+		},
+		"gender": {
+			"type": "string",
+			"enum": [
+				"M",
+				"F"
+			]
+		},
+		"arrestReason": {
+			"type": "string"
+		},
+		"arrestingOfficerName": {
+			"type": "string"
+		},
+		"arrestingOfficerNumber": {
+			"type": "string"
+		},
+		"arrestingOfficerDetails": {
+			"type": "string"
+		},
+		"interviewed": {
+			"type": "string",
+			"enum": [
+				"Y",
+				"N"
+			]
+		},
+		"interviewers": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"parameters": {
+					"name": {
+						"type": "string"
+					},
+					"number": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"rightsRead": {
+			"type": "string",
+			"enum": [
+				"Y",
+				"N"
+			]
+		},
+		"searched": {
+			"type": "string",
+			"enum": [
+				"Y",
+				"N"
+			]
+		},
+		"injuries": {
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
+		"involved": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"parameters": {
+					"name": {
+						"type": "string"
+					},
+					"number": {
+						"type": "string"
+					}
+				}
+			}
+		},
+		"caseNotes": {
+			"type": "string"
+		},
+		"actionTaken": {
+			"type": "string"
+		},
+		"patrickCanessaInformed": {
+			"type": "string",
+			"enum": [
+				"Y",
+				"N"
+			]
+		},
+		"notificationDateTime": {
+			"type": "string",
+			"format": "date-time"
+		},
+		"lawyerOffered": {
+			"type": "string",
+			"enum": [
+				"Y",
+				"N"
+			]
+		},
+		"comments": {
+			"type": "string"
+		}
+	}
+}
