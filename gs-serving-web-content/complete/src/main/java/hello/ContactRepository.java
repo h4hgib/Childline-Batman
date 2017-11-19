@@ -6,6 +6,4 @@ public interface ContactRepository extends MongoRepository<Contact, String> {
 
     public Contact findById(Long id);
 
-//	public void set(String string, Long timestamp);
-
 }
