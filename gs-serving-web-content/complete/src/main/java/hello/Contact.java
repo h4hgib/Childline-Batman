@@ -2,11 +2,12 @@ package hello;
 
 import org.springframework.data.annotation.Id;
 
-
 public class Contact {
+	
+	@Id
+	public String mongo_id;
 
-    @Id
-    public String id;
+    public Long id;
 
     public Long timestamp;
     public String method;
@@ -15,7 +16,7 @@ public class Contact {
 
     public Contact() {}
 
-    public Contact(Long timestamp, String method, String category, String requestForAnonimity) {
+    public Contact(Long id,Long timestamp, String method, String category, String requestForAnonimity) {
         this.timestamp = timestamp;
         this.method = method;
         this.category = category;

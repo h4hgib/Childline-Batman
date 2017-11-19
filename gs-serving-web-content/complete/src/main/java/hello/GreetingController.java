@@ -33,8 +33,6 @@ public class GreetingController {
     @RequestMapping(value="/auth/login", method=RequestMethod.POST)
     @ResponseBody
     public String login(@RequestParam(value="username", required=true) String username,@RequestParam(value="password", required=true) String password, Model model) {
-    		System.out.println(username+password);
-    		System.out.println(userRepository.findByUsername(username));
     		String token=loged.logIn(username, password,userRepository.findByUsername(username));
     		return "{\"token:\":\""+token+"\", \"userData\": {\"username\": " + username + "}}";
     }
@@ -56,7 +54,14 @@ public class GreetingController {
     		if (loged.isLoggedToken(token)==false) {
     			return "{\"success\":401}";
     		}
-    		contactRepository.save(new Contact(timestamp,method,category, requestForAnonimity));
+    		Long i=0l;
+    		List<Contact> contacts=contactRepository.findAll();
+    		for (Contact c : contacts) {
+    			if (c.id > i){
+    				i=c.id;
+    			}
+    		}
+    		contactRepository.save(new Contact(i+1,timestamp,method,category, requestForAnonimity));
       return "{\"success\":200}";
     }
     
@@ -80,7 +85,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts/{id}", method=RequestMethod.GET)
     @ResponseBody
-    public String contactsWparameters(@RequestParam(value="id", required=true) String id, @RequestHeader(value="token", required=true) String token) {
+    public String contactsWparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="token", required=true) String token) {
     	if (loged.isLoggedToken(token)==false) {
 			return "{\"success\":401}";
 		}
@@ -89,7 +94,7 @@ public class GreetingController {
     
     @RequestMapping(value="/contacts/{id}", method=RequestMethod.POST)
     @ResponseBody
-    public String updateContactsWparameters(@RequestParam(value="id", required=true) String id, @RequestHeader(value="token", required=true) String token,
+    public String updateContactsWparameters(@RequestParam(value="id", required=true) Long id, @RequestHeader(value="token", required=true) String token,
     		@RequestParam(value="timestamp", required=false) Long timestamp,
     		@RequestParam(value="method", required=false) String method,
     		@RequestParam(value="category", required=false) String category,
