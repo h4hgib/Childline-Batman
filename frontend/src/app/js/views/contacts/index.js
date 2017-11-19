@@ -11,34 +11,8 @@ class ContactsView extends Component {
 
 	componentDidMount() {
 		this.props.dispatch(getContacts());
-	/*
-	"timestamp": {
-			"type": "string",
-			"format": "date-time",
-			"title": "Date and time"
-		},
-		"contactMethod": {
-			"type": "string",
-			"title": "Contact Method",
-			"enum": [
-				"Phone",
-				"Live Chat",
-				"Email"
-			]
-		},
-		"category": {
-			"type": "string",
-			"title": "Request for anonimity",
-			"enum": [
-				"Diverse",
-				"Referral",
-				"Request for Information",
-				"Appropiate Adult"
-			]
-		},
-		"requestAnonimity": {
-	 */
-	*/
+	}
+	
 	render() {
 		return (<div>
 				<PageHeader>

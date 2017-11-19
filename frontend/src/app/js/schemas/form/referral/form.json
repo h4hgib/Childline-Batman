@@ -78,7 +78,7 @@
                             "title": "Nickname"
                         },
                         "sex": {
-                            type: "string",
+                            "type": "string",
                             "title": "Sex",
                             "enum": [
                                 "Male",
@@ -158,6 +158,52 @@
                             "type": "string",
                             "title": "Description"
                         }
+                    },
+                    "dependencies": {
+                    	"primary": {
+                    		"oneOf": [
+                    			{
+                    				"properties": {
+                    					"primary": {
+                    						"enum": [ "Alcohol abuse", "Bullying", "Depression", "Domestic Violence", "Eating disorder", "Education", "Emotional abuse", "Exam stress", "Family relationships", "Gender Issues", "Grieve", "Health issue", "Historice Abuse", "Mental Health", "Neglect", "Peer relationships", "Physical Abuse", "Self Harm", "Sexual abuse", "Substance abuse", "Suicide", "Support/General", "Teen Pregnancies", "Unsafe Housing conditions"]
+                    					}
+                    				}
+                    			},
+                    			{
+                    				"properties": {
+                    					"primary": {
+                    						"enum": ["Add Other"]
+                    					},
+                    					"newPrimaryReason:": {
+                    						"type": "string",
+                    						"title": "New Primary reason tag"
+                    					}
+                    				}
+                    			}
+                    		]
+                    	},
+                    	"secondary": {
+                    		"oneOf": [
+                    			{
+                    				"properties": {
+                    					"secondary": {
+                    						"enum": [ "Alcohol abuse", "Bullying", "Depression", "Domestic Violence", "Eating disorder", "Education", "Emotional abuse", "Exam stress", "Family relationships", "Gender Issues", "Grieve", "Health issue", "Historice Abuse", "Mental Health", "Neglect", "Peer relationships", "Physical Abuse", "Self Harm", "Sexual abuse", "Substance abuse", "Suicide", "Support/General", "Teen Pregnancies", "Unsafe Housing conditions"]
+                    					}
+                    				}
+                    			},
+                    			{
+                    				"properties": {
+                    					"secondary": {
+                    						"enum": ["Add Other"]
+                    					},
+                    					"newSecondaryReason:": {
+                    						"type": "string",
+                    						"title": "New Secondary reason tag"
+                    					}
+                    				}
+                    			}
+                    		]
+                    	}
                     }
                 },
                 "referral": {

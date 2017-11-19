@@ -4,5 +4,5 @@
 	},
 	"followupDetails": {
 		"ui:widget": "textarea"
-	},
+	}
 }
