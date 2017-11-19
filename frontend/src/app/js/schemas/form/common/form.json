@@ -1,5 +1,5 @@
 {
-	"title": "Common input",
+	"title": "Basic Information",
 	"description": "This data is to be filled on all contacts",
 	"type": "object",
 	"required": [

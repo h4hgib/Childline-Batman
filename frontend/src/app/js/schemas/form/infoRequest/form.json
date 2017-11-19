@@ -1,5 +1,5 @@
 {
-	"title": "Request for Information input",
+	"title": "Contact Type: Request for Information",
 	"description": "This data is to be filled on request for information contacts",
 	"type": "object",
 	"properties": {

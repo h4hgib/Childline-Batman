@@ -1,6 +1,6 @@
 {
-	"title": "Request for Information input",
-	"description": "This data is to be filled on request for information contacts",
+	"title": "Contact type: Referral",
+	"description": "This data is to be filled on referral contacts",
 	"type": "object",
 	"properties": {
         "volunteerName": {
