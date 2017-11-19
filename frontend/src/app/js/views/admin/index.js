@@ -6,8 +6,8 @@ import Form from 'react-jsonschema-form';
 import _ from 'lodash';
 
 import {createUser} from '../../redux/auth/actions.js';
-import userSchema from '../../schemas/user.json';
-import userUiSchema from '../../schemas/user.ui.json';
+import userSchema from '../../schemas/user/user.json';
+import userUiSchema from '../../schemas/user/user.ui.json';
 
 function validate({ password, repeatPassword }, errors) {
   if (password !== repeatPassword) {
@@ -17,7 +17,6 @@ function validate({ password, repeatPassword }, errors) {
 }
 
 function handleInput(component, field, transform, e) {
-	console.trace('handleInput', component, field, e, transform);
 	const newState = {};
 	newState[field] = transform(e);
 	component.setState(newState);
@@ -63,6 +62,7 @@ class AdminView extends Component {
 						formData={this.state.userCreationData}
 						onChange={this.handleInput('userCreationData')(({formData}) => formData)}
 						onSubmit={this.handleOnSubmit}
+						liveValidate
 					/>
 				</div>
 			</div>);

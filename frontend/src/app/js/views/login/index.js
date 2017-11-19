@@ -21,7 +21,7 @@ class LoginView extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.isAuthenticated) {
-			axios.defaults.headers.common['Authorization'] = null; // TODO
+			axios.defaults.headers.common['Authorization'] = nextProps.token;
 			this.props.history.push('/form');
 		} else {
 			axios.defaults.headers.common['Authorization'] = null;
@@ -81,12 +81,14 @@ class LoginView extends Component {
 
 LoginView.propTypes = {
 	isAuthenticated: PropTypes.bool,
-	isAuthenticating: PropTypes.bool
+	isAuthenticating: PropTypes.bool,
+	token :PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
-	isAuthenticating: state.auth.isAuthenticating
+	isAuthenticating: state.auth.isAuthenticating,
+	token: state.auth.token
 });
 
 export default connect(mapStateToProps)(LoginView);

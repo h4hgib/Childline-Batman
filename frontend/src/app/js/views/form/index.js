@@ -3,47 +3,37 @@ import Proptypes from 'prop-types';
 import {connect} from 'react-redux';
 import {PageHeader} from 'react-bootstrap';
 import _ from 'lodash';
-import {postContact} from '../../redux/contacts/actions.js';
-import CommonDataInput from './subcomponents/commonDataInput';
-
-const handleInput = (component, field, value) => {
-	console.log('handleInput', component, field, value);
-	const newState = {};
-	newState[field] = value;
-	component.setState(newState);
-	
-};
+import {updateContact} from '../../redux/contacts/actions.js';
 
 class FormView extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			timestamp: new Date()
+			formData: {
+
+			}
 		};
 
 		this.handleInput = _.curry(handleInput)(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	
+	componentDidMount() {
+		this.props.dispatch(this.props.params.id)
+	}
 
 	handleSubmit(e) {
-		this.props.dispatch(postContact(this.state));
+		this.props.dispatch(postContact(transformFormData(this.state.formData)));
 	}
 
 	render() {
 		return (<div>
 				<PageHeader>
-					Register contact
+					Contact Data
 				</PageHeader>
 				<div>
-					<CommonDataInput
-						handleInput={this.handleInput}
-						timestamp={this.state.timestamp}
-						category={this.state.category}
-						requestAnonimity={this.state.requestAnonimity}
-						contactMethod={this.state.contactMethod}
+					<Form
 					/>
 				</div>
 			</div>);

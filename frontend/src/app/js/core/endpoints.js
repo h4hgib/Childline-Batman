@@ -37,5 +37,9 @@ export default {
 			'username',
 			'password'
 		]
+	},
+	getStats: {
+		url: `/stats`,
+		method: 'get'
 	}
 };

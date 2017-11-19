@@ -30,7 +30,16 @@ class StatsView extends Component {
 					Statistics
 				</PageHeader>
 				<div>
-					Body
+					<BarStackZoom
+						title= {"Abuse cases"}
+						data= {data}
+						width= {860}
+						height= {640}
+						chartSeries = {chartSeries}
+						x= {x}
+						xScale= {"ordinal"}
+						yTickFormat= {yTickFormat}
+					/>
 				</div>
 			</div>);
 	}

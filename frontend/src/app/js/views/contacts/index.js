@@ -4,6 +4,15 @@ import {connect} from 'react-redux';
 import {PageHeader} from 'react-bootstrap';
 
 class ContactsView extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	componentDidMount() {
+
+	}
+
+
 	render() {
 		return (<div>
 				<PageHeader>
